@@ -1,0 +1,8 @@
+{
+  "name": "VIBE_OS: Interface Senciente",
+  "description": "Uma vitrine imersiva de Vibe Coding e IA de 2026, com WebGL, Scrollytelling 3D e UI Generativa.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
