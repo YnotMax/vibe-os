@@ -1,10 +1,19 @@
 
+export type ComponentType = 'text' | 'chart' | 'tracker' | 'palette' | 'system-alert';
+
 export interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
-  type?: 'text' | 'chart' | 'code';
+  type?: ComponentType;
   data?: any;
+}
+
+export interface AgentStep {
+  id: string;
+  label: string;
+  status: 'idle' | 'processing' | 'complete' | 'error';
+  icon: string;
 }
 
 export interface Agent {
@@ -14,3 +23,5 @@ export interface Agent {
   status: 'idle' | 'processing' | 'done';
   logs: string[];
 }
+
+export type GlobalTheme = 'obsidian' | 'trust-blue' | 'cyberpunk-neon' | 'glass-white';

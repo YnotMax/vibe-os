@@ -2,7 +2,18 @@
 import React from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-const BentoCard = ({ title, desc, icon, className, index }: { title: string, desc: string, icon: string, className?: string, index: number }) => {
+interface BentoCardProps {
+  // Added key to props to resolve assignment error in map function
+  key?: React.Key;
+  id: string;
+  title: string;
+  desc: string;
+  icon: string;
+  className?: string;
+  index: number;
+}
+
+const BentoCard = ({ title, desc, icon, className, index }: BentoCardProps) => {
   const { scrollYProgress } = useScroll();
   
   // Transform values for tilt based on scroll
@@ -18,9 +29,9 @@ const BentoCard = ({ title, desc, icon, className, index }: { title: string, des
       className={`relative group p-8 glass-morphism rounded-[2.5rem] border border-zinc-800 overflow-hidden min-h-[300px] flex flex-col justify-end ${className}`}
     >
       <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-cyan-400/20 to-transparent blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-      <div className="absolute top-8 left-8 text-4xl mb-6">{icon}</div>
+      <div className="absolute top-8 left-8 text-4xl mb-6 transform group-hover:scale-110 transition-transform">{icon}</div>
       <div className="relative z-10">
-        <h3 className="text-2xl font-bold mb-3 tracking-tight">{title}</h3>
+        <h3 className="text-2xl font-bold mb-3 tracking-tight group-hover:text-cyan-400 transition-colors">{title}</h3>
         <p className="text-zinc-400 text-sm leading-relaxed max-w-[250px]">{desc}</p>
       </div>
       
@@ -32,24 +43,24 @@ const BentoCard = ({ title, desc, icon, className, index }: { title: string, des
 
 export const BentoGrid = () => {
   const cards = [
-    { title: "Neuro-Sync 1.0", desc: "Integração direta entre pensamento e estrutura de dados.", icon: "🧠", col: "md:col-span-2" },
-    { title: "Latência Zero", desc: "Processamento distribuído em redes neurais globais.", icon: "⚡", col: "" },
-    { title: "Bio-Design", desc: "Interfaces que evoluem organicamente conforme o uso.", icon: "🌱", col: "" },
-    { title: "Segurança Quântica", desc: "Criptografia baseada em entropia natural.", icon: "🛡️", col: "md:col-span-2" },
+    { id: 'neuro-sync', title: "Neuro-Sync 1.0", desc: "Integração direta entre pensamento e estrutura de dados.", icon: "🧠", col: "md:col-span-2" },
+    { id: 'latency', title: "Latência Zero", desc: "Processamento distribuído em redes neurais globais.", icon: "⚡", col: "" },
+    { id: 'bio-design', title: "Bio-Design", desc: "Interfaces que evoluem organicamente conforme o uso.", icon: "🌱", col: "" },
+    { id: 'quantum-sec', title: "Segurança Quântica", desc: "Criptografia baseada em entropia natural.", icon: "🛡️", col: "md:col-span-2" },
   ];
 
   return (
     <section className="py-24 px-4 bg-[#050505]">
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 text-center">
-          <h2 className="text-4xl font-bold">ECOSSISTEMA VIBE</h2>
-          <p className="text-zinc-500 mt-2">A infraestrutura que sustenta a consciência digital</p>
+          <h2 className="text-4xl font-bold tracking-tighter">ECOSSISTEMA VIBE</h2>
+          <p className="text-zinc-500 mt-2 font-light">A infraestrutura que sustenta a consciência digital</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {cards.map((card, i) => (
-            // Fixed: Use explicit properties instead of spread to avoid passing the 'col' property, which caused a TypeScript error on line 50.
             <BentoCard 
-              key={i} 
+              key={card.id} 
+              id={card.id}
               title={card.title} 
               desc={card.desc} 
               icon={card.icon} 
